@@ -1,0 +1,16 @@
+web:
+  image: 'gitlab/gitlab-ce:latest'
+  restart: always
+  hostname: 'gitlab.jcsoft.xyz' #主机名
+  environment:
+    GITLAB_OMNIBUS_CONFIG: |
+      external_url 'http://gitlab.jcsoft.xyz'   # 访问入口
+      gitlab_rails['gitlab_shell_ssh_port'] = 2233      #ssh端口，如果非22端口必须指定
+  ports:
+    - '80:80'
+    - '443:443'
+    - '2233:22'
+  volumes:
+    - '/home/gitlab/config:/etc/gitlab'          #配置文件目录
+    - '/home/gitlab/logs:/var/log/gitlab'        #日志文件目录
+    - '/home/gitlab/data:/var/opt/gitlab'        #数据文件目录
